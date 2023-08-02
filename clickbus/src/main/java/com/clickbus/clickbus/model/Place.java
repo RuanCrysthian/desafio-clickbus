@@ -2,9 +2,9 @@ package com.clickbus.clickbus.model;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import com.github.slugify.Slugify;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -59,8 +59,10 @@ public class Place implements Serializable {
         return slug;
     }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
+    @PrePersist
+    public void setSlug() {
+        final Slugify slg = Slugify.builder().build();
+        this.slug = slg.slugify(this.getName());
     }
 
     public String getCity() {
