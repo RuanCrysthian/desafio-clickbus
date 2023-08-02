@@ -52,17 +52,13 @@ public class Place implements Serializable {
     }
 
     public void setName(String name) {
+        final Slugify slg = Slugify.builder().build();
+        this.slug = slg.slugify(name);
         this.name = name;
     }
 
     public String getSlug() {
         return slug;
-    }
-
-    @PrePersist
-    public void setSlug() {
-        final Slugify slg = Slugify.builder().build();
-        this.slug = slg.slugify(this.getName());
     }
 
     public String getCity() {
