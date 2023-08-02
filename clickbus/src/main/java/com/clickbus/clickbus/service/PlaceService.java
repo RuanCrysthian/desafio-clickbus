@@ -28,7 +28,6 @@ public class PlaceService {
     public Place update(Place place) {
         Place entity = repository.findById(place.getId()).orElseThrow(() -> new RuntimeException("Place not Found!"));
         entity.setName(place.getName());
-        entity.setSlug(place.getSlug());
         entity.setCity(place.getCity());
         entity.setState(place.getState());
         return repository.save(entity);
