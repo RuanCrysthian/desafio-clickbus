@@ -4,12 +4,16 @@ import java.io.Serializable;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.slugify.Slugify;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "place")
+@JsonPropertyOrder({ "id", "name", "slug", "state", "city", "createdAt", "updatedAt" })
 public class Place implements Serializable {
 
     @Id
@@ -28,10 +32,12 @@ public class Place implements Serializable {
     @Column(name = "state", nullable = false, length = 80)
     private String state;
 
+    @JsonProperty("created_at")
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, length = 80)
     private LocalDateTime createdAt;
 
+    @JsonProperty("updated_at")
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false, length = 80)
     private LocalDateTime updatedAt;
