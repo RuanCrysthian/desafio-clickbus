@@ -25,6 +25,10 @@ public class PlaceService {
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Place not found!"));
     }
 
+    public Place findByName(String name) {
+        return repository.findByName(name).orElseThrow(() -> new RuntimeException("Place not found!"));
+    }
+
     public Place update(Place place) {
         Place entity = repository.findById(place.getId()).orElseThrow(() -> new RuntimeException("Place not Found!"));
         entity.setName(place.getName());

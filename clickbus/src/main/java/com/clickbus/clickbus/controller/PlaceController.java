@@ -40,6 +40,11 @@ public class PlaceController {
         return service.findById(id);
     }
 
+    @GetMapping("/name/{name}")
+    public Place findByName(@PathVariable(value = "name") String name) throws Exception {
+        return service.findByName(name);
+    }
+
     @PutMapping
     public Place update(@RequestBody Place place) {
         return service.update(place);
