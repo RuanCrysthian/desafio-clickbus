@@ -89,6 +89,23 @@ public class PlaceControllerTest {
   }
 
   @Test
+  public void testFindByName() throws Exception {
+    // Mock data
+    String name = "test name";
+    Place place = new Place();
+    place.setName(name);
+    when(placeService.findByName(name)).thenReturn(place);
+
+    // Perform the test
+    Place foundPlace = placeController.findByName(name);
+
+    // Assertions
+    assertEquals(name, foundPlace.getName());
+    assertEquals("test name", foundPlace.getName());
+    verify(placeService, times(1)).findByName(name);
+  }
+
+  @Test
   public void testUpdate() {
     // Mock data
     Place place = new Place();
