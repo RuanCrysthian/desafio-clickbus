@@ -91,6 +91,29 @@ public class PlaceServiceTest {
   }
 
   @Test
+  public void testFindByName_existingName() {
+    String existingName = "test";
+    Place existingPlace = new Place(1L, existingName, "Test City", "Test State");
+    when(repository.findByName(existingName)).thenReturn(Optional.of(existingPlace));
+
+    // Act
+    Place foundPlace = placeService.findByName(existingName);
+
+    // Assert
+    assertNotNull(foundPlace);
+    assertEquals(existingName, foundPlace.getName());
+  }
+
+  @Test
+  public void testFindByName_nonExistingName() {
+    String nonExistingName = "bla";
+    when(repository.findByName(nonExistingName)).thenReturn(Optional.empty());
+
+    // Act & Assert
+    assertThrows(RuntimeException.class, () -> placeService.findByName(nonExistingName));
+  }
+
+  @Test
   public void testUpdate() {
     // Arrange
     Long existingId = 1L;
